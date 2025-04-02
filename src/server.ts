@@ -1,13 +1,12 @@
 import { fastify } from 'fastify';
 import { fastifyCors } from "@fastify/cors";
+import { routes } from './routes/index.routes';
 
 const app = fastify();
 
-app.register(fastifyCors, { origin: "*" });
+app.register(fastifyCors);
 
-app.get('/', (request, reply) => {
-  return reply.status(200).send({ message: "Hello World!"});
-});
+app.register(routes, { prefix: '/api'})
 
 app.listen({ port: 3333 }, () => {
   console.log('HTTP Server is runnin!')
